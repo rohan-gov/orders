@@ -1,0 +1,68 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "firstName": "Dinesh",
+            "lastName": "Sonawane",
+            "email": "dinesh@gmail.com",
+            "username":"dSonawane",
+            "password":"123@india",
+            "userType": "admin"
+        },
+        {
+            "id": 2,
+            "firstName": "Rohan",
+            "lastName": "Govekar",
+            "email": "rohan@gmail.com",
+            "username":"rGovekar",
+            "password":"123@india",
+            "userType": "user"
+        },
+        {
+            "id": 1,
+            "firstName": "Durgesh",
+            "lastName": "Sonawane",
+            "email": "durgesh@gmail.com",
+            "username":"duSonawane",
+            "password":"123@india",
+            "userType": "user"
+        }
+    ],
+    "orders": [
+        {
+            "orderId": "#AAA",
+            "productId": "#p1",
+            "productName": "Product1",
+            "quantity": 10,
+            "customerId": 2
+        },
+        {
+            "orderId": "#BBB",
+            "productId": "#p2",
+            "productName": "Product1",
+            "quantity": 10,
+            "customerId": 2
+        },
+        {
+            "orderId": "#CCC",
+            "productId": "#p3",
+            "productName": "Product5",
+            "quantity": 10,
+            "customerId": 2
+        },
+        {
+            "orderId": "#DDD",
+            "productId": "#p3",
+            "productName": "Product3",
+            "quantity": 10,
+            "customerId": 3
+        },
+        {
+            "orderId": "#EEE",
+            "productId": "#p4",
+            "productName": "Product4",
+            "quantity": 10,
+            "customerId": 2
+        }
+    ]
+}
