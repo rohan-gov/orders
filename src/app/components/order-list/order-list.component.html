@@ -1,54 +1,60 @@
+<h1>Orders List</h1>
 <br>
-<div class="row" *ngIf="userType == 'user'">
-  <div class="col s6">
+<h5>order status: {{ orderStatus.userType }}</h5>
+<div class="row" *ngIf="orderStatus.userType == 'user'">
+  <div class="col s4">
     <ul class="collection with-header">
-      <li class="collection-item" *ngFor="let order of orders" >
+      <li class="collection-item" *ngFor="let order of OrdersById" >
         <div (click)="getOrder(order.orderId)">{{order.orderId}}
           <a href="#!" class="secondary-content"><i class="material-icons">send</i></a>
         </div>
       </li>
     </ul>
   </div>
-  <div class="col s6">
+  <div class="col s7 offset-s1" *ngIf="singleOrder[0].orderId">
     <table>
       <tbody>
         <tr>
           <td>Order Id</td>
-          <td>{{singleOrder.orderId}}</td>
+          <td>{{singleOrder[0].orderId}}</td>
         </tr>
         <tr>
           <td>Product Id</td>
-          <td>{{singleOrder.productId}}</td>
+          <td>{{singleOrder[0].productId}}</td>
+        </tr>
+        <tr>
+          <td>Product Name</td>
+          <td>{{singleOrder[0].productName}}</td>
         </tr>
         <tr>
           <td>Quantity</td>
-          <td>{{singleOrder.quantity}}</td>
+          <td>{{singleOrder[0].quantity}}</td>
         </tr>
       </tbody>
     </table>
   </div>
-</div>
+</div> 
 
 
-<div class="row" *ngIf="userType == 'admin'">  
+<div class="row" *ngIf="orderStatus.userType == 'admin'">  
     <div class="col s12">
-      <h1>Orders List</h1>
       <table>
           <thead>
             <tr>
                 <th>Order Id</th>
                 <th>Product Id</th>
+                <th>Product Name</th>
                 <th>Quantity</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let order of ordersList">
               <td>{{ order.orderId }}</td>
-              <td>{{ order.productId }}</td>
+              <td>{{ order.productId }}</td> 
+              <td>{{ order.productName }}</td> 
               <td>{{ order.quantity }}</td>
             </tr>
           </tbody>
         </table>
     </div>
   </div>
-        

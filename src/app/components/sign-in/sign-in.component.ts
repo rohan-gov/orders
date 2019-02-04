@@ -39,6 +39,7 @@ export class SignInComponent implements OnInit {
             userType:user[0].userType
           };
           this.notifyService.setNotification(statusData);
+          this.authService.setStatus(statusData);
           this.router.navigate(["/order-list"]);
 
         }else{

@@ -15,11 +15,11 @@ export class NavbarComponent implements OnInit {
     private notify: NotifyService,
     private router: Router
   ) { 
-    
+    this.loginStatus();
   }
 
   ngOnInit() {
-    this.loginStatus();
+    
   }
 
   logout(){
@@ -32,7 +32,10 @@ export class NavbarComponent implements OnInit {
     this.notify.getNotification().subscribe(
       (status)=>{
           this.isLogin = status.Status.loginStatus;
-          console.log("status: ", status); 
+          console.log("status: ", status);  
+          if(!this.loginStatus){
+            this.router.navigate(['/sign-in']);
+          }
       }
     );
   }

@@ -11,7 +11,11 @@ import { map } from 'rxjs/operators';
 export class AuthService {
   
   baseUrl: String = "http://localhost:3000/";
-
+  status : any = {
+    loginStatus: false,
+    userId: null, 
+    userType:''
+  };
   constructor(private httpClient: HttpClient) { }
 
   singIn(user:any){
@@ -24,16 +28,20 @@ export class AuthService {
     console.log("check : ", check);
   }
 
-  getOrders(app:any){
-    console.log("status:", app.Status);
-    let data = app.Status;
-    if(data.userType == 'admin'){
+  getOrders(){
       return this.httpClient.get<Order[]>(`${this.baseUrl}orders`);
-    }
-    else{
-      return this.httpClient.get<Order[]>(`${this.baseUrl}orders?customerId=${data.userId}`);
-    }
+  }
 
+  getOrdersById(id: any){
+      return this.httpClient.get<Order[]>(`${this.baseUrl}orders?customerId=${id}`);
+  }
+
+  setStatus(data:any){
+    this.status = data;
+  }
+
+  getStatus(){
+    return this.status;
   }
 
 }

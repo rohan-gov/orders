@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NotifyService } from '../../services/notify.service';
 import { Order } from '../../models/order';
@@ -13,77 +14,69 @@ import { map } from 'rxjs/operators';
 export class OrderListComponent implements OnInit {
 
   ordersList: Order[];
-  userType: String;
+  userType: any;
   orderStatus: any;
-  orders = [
-    {
-        "orderId": "#AAA",
-        "productId": "#p1",
-        "productName": "Product1",
-        "quantity": 10,
-        "customerId": 2
-    },
-    {
-        "orderId": "#BBB",
-        "productId": "#p2",
-        "productName": "Product1",
-        "quantity": 10,
-        "customerId": 2
-    },
-    {
-        "orderId": "#CCC",
-        "productId": "#p3",
-        "productName": "Product5",
-        "quantity": 10,
-        "customerId": 2
-    },
-    {
-        "orderId": "#DDD",
-        "productId": "#p3",
-        "productName": "Product3",
-        "quantity": 10,
-        "customerId": 3
-    }
-  ];
-
+  
   singleOrder: any = [{
     orderId:"",
     productId:"",
     quantity: null
   }];
 
+  OrdersById: any = [{
+    orderId:"",
+    productId:"",
+    quantity: null
+  }];
+
+  userStatus: String;
+
 
   constructor(
     private authService: AuthService,
-    private notify: NotifyService
+    private notify: NotifyService,
+    private router: Router
     ) { }
 
   ngOnInit() {
     this.getStatus();
+    this.getOrders();
+    this.getOrderById(2);
   }
 
   getStatus() {
-    this.notify.getNotification().subscribe((data) => {
-        console.log("status: ", data);
-        this.orderStatus = data;
-        this.userType = data.Status.userType;
-        this.authService.getOrders(data).subscribe(
-          (res) => {
-            this.ordersList = res;
-            console.log("this.ordersList: ", this.ordersList);
-          },
-          err => console.log("x err:", err),
-          () => console.log("x:complete")
-        );  
-    });    
+   
+      this.orderStatus = this.authService.getStatus();
+      
+      if(this.orderStatus.userType === ''){
+        this.router.navigate(["/sign-in"]);
+      }
+  }
+
+  getOrders(){
+    this.authService.getOrders().subscribe(
+      (res) => {
+          this.ordersList = res;
+          console.log("this.ordersList: ", this.ordersList);
+      },
+      err => console.log("x err:", err),
+      () => console.log("x:complete")
+    );  
+  }
+
+  getOrderById(id){
+    this.authService.getOrdersById(id).subscribe((res) => {
+      this.OrdersById = res;
+    });
   }
 
   getOrder(id){
-    console.log("order id : ", id);
-    this.singleOrder = this.orders.filter((order)=> {
-      return order.orderId == id;
-    });
-    console.log("single order: ", this.singleOrder);
+      console.log("id: ", id);
+      console.log("this.OrdersById:", this.OrdersById);
+      this.singleOrder = this.OrdersById.filter((order)=> {  
+        return order.orderId == id;
+      });
+      console.log("this.singleOrder : ", this.singleOrder);
   }
 
 }
